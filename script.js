@@ -14,14 +14,14 @@ let score = [0,0];
 function main(){
 let u=""
 let c=""
-while(u=c){
+while(u==c){
     u=userTurn()
     c=cpuTurn()
     if (u==c)alert("We both chose"+ c)
 }
 let combo=u+c
- winner=findWinner(combo)
- ("You chose "+ u+" and I chose "+ c+ winner+" won!")
+let winner=findWinner(combo)
+ alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
 }
 
 function setRounds() {
@@ -44,7 +44,12 @@ function rpsRound() {
 * @return:choice
 */
 function userTurn() {
-return("r")
+let choice=prompt("enter r, p, or s.")
+let moves=["r", "p", "s"]
+if(!moves.includes(choice)){
+ alert("invalid input")
+ }
+ return choice
 }
 
 /* cpuTurn
@@ -53,7 +58,9 @@ return("r")
 * @return: choice
 */
 function cpuTurn() {
-return ("p")
+let choice= Math.floor(Math.random()*3)
+let moves=["r", "p", "s"]
+return moves[choice]
 }
 
 /* findWinner
@@ -63,7 +70,13 @@ return ("p")
 * @param:u,c
 * @return: winner
 */
-function findWinner(u,c) {
-let u="r"
-let c="p"
+function findWinner(combo) {
+    let match=""
+    let winner=""
+    let winArray=[["r","p","I"],["r","s","You"],["p","r","You"],["p","s","I"],["s","p","You"],["s","r","I"]]
+    for(i=0; i<winArray.length; i++){
+        match=winArray[i][0]+winArray[i][1];
+        if(match==combo)winner=winArray[i][2];
+        }
+    return winner;
 }
