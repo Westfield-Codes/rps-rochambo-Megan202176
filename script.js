@@ -9,24 +9,39 @@
 *  3. System Test finished version (does it work right in all conditions?)
 */
 /* Global Variables */
-let score = [0,0];
+let scores = [0,0];
 
-function main(){
-let u=""
-let c=""
-while(u==c){
-    u=userTurn()
-    c=cpuTurn()
-    if (u==c)alert("We both chose"+ c)
-}
-let combo=u+c
-let winner=findWinner(combo)
- alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
-}
+    function main(){
+    let rounds=setRounds()
+    let u=""
+    let c=""
+    while(u==c){
+        u=userTurn()
+        c=cpuTurn()
+        if (u==c)alert("We both chose"+ c)
+    }
+    let combo=u+c
+    let winner=findWinner(combo)
+    alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
+    
+    }
+
 
 function setRounds() {
-let round
-}
+    let rounds=propmt("How many rounds do you want? ODD numbers only.")
+    for(round=1; round<=rounds; round++){
+
+    }
+        }
+
+function score(winner){
+    let winnerWords=[You, I]
+    let scoreWin=winnerWords.indexOf(winner)
+    scores[scoreWin]++
+    alert(winner+" won. The score is now YOU: "+ scores[0]+ "and I: "+ scores[1])
+    if(scores[scoreWin]>rounds/2)
+        alert(winner +" won the whole series")
+    }
 
 /* RPS Round
 * plays a round of RPS and tells the winner
@@ -34,7 +49,7 @@ let round
 * @return:none
 */
 function rpsRound() {
-
+    
 }
 
 /* userturn
