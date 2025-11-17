@@ -13,27 +13,16 @@ let scores = [0,0];
 let rounds=0
 
 function main(){
-    let board=document.getElementById("gameBoard");
-    let play=document.getElementById("playButton").style.display = 'none';
-    let instruction=document.createElement("p");
-    instruction.innerHTML="How many rounds would you like?";
-    board.appendChild(instruction);
-    let roundsBox=document.createElement("input");
-    board.appendChild(roundsBox);
-    let roundsButton=document.createElement("button");
-    roundsButton.addEventListener("click", setRounds);
-    board.appendChild(roundsButton);
-    // for(round=1; round<=rounds; round++){
-    // winner=rpsRound(round)
-    // score(winner)
-       // }
+    rounds=setRounds()
+    for(round=1; round<=rounds; round++){
+    winner=rpsRound(round)
+    score(winner)
+        }
     }
 
 function setRounds() {
-
-    rounds=document.getElementById("roundsBox").value;
-    console.log(rounds)
-    //return rounds
+    let rounds=parseInt(prompt("How many rounds do you want? ODD numbers only."))
+    return rounds
         
 }
 
