@@ -10,37 +10,29 @@
 */
 /* Global Variables */
 let scores = [0,0];
+let rounds=0
 
-    function main(){
-    let rounds=setRounds()
-    let u=""
-    let c=""
-    while(u==c){
-        u=userTurn()
-        c=cpuTurn()
-        if (u==c)alert("We both chose"+ c)
+function main(){
+    rounds=setRounds()
+    for(round=1; round<=rounds; round++){
+    winner=rpsRound(round)
+    score(winner)
+        }
     }
-    let combo=u+c
-    let winner=findWinner(combo)
-    alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
-    
-    }
-
 
 function setRounds() {
-    let rounds=propmt("How many rounds do you want? ODD numbers only.")
-    for(round=1; round<=rounds; round++){
-
-    }
-        }
+    let rounds=parseInt(prompt("How many rounds do you want? ODD numbers only."))
+    return rounds
+        
+}
 
 function score(winner){
-    let winnerWords=[You, I]
+    let winnerWords=["You", "I"]
     let scoreWin=winnerWords.indexOf(winner)
     scores[scoreWin]++
-    alert(winner+" won. The score is now YOU: "+ scores[0]+ "and I: "+ scores[1])
+    alert(winner+" won. The score is now YOU: "+ scores[0]+ " and I: "+ scores[1])
     if(scores[scoreWin]>rounds/2)
-        alert(winner +" won the whole series")
+        alert(winner +" won the whole series.")
     }
 
 /* RPS Round
@@ -48,7 +40,18 @@ function score(winner){
 * @param: none
 * @return:none
 */
-function rpsRound() {
+function rpsRound(round) {
+    let u=""
+    let c=""
+    while(u==c){
+        u=userTurn(round)
+        c=cpuTurn()
+        if (u==c)alert("We both chose "+ c)
+    }
+    let combo=u+c
+    let winner=findWinner(combo)
+    return winner
+    //alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
     
 }
 
@@ -58,8 +61,8 @@ function rpsRound() {
 * @param:none
 * @return:choice
 */
-function userTurn() {
-let choice=prompt("enter r, p, or s.")
+function userTurn(round) {
+let choice=prompt("Round " + round+ ": enter r, p, or s.")
 let moves=["r", "p", "s"]
 if(!moves.includes(choice)){
  alert("invalid input")
