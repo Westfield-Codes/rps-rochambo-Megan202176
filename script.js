@@ -9,18 +9,20 @@
 *  3. System Test finished version (does it work right in all conditions?)
 */
 /* Global Variables */
-let scores = [0,0];
-let rounds=0
+var scores = [0,0];
+var rounds=0
+var board=document.getElementById("gameBoard");
 
 function main(){
-    let board=document.getElementById("gameBoard");
-    let play=document.getElementById("playButton").style.display = 'none';
+    document.getElementById("playButton").style.display = 'none';
     let instruction=document.createElement("p");
     instruction.innerHTML="How many rounds would you like?";
     board.appendChild(instruction);
     let roundsBox=document.createElement("input");
+    roundsBox.id="roundsBox";
     board.appendChild(roundsBox);
     let roundsButton=document.createElement("button");
+    roundsButton.innerHTML="Enter Rounds";
     roundsButton.addEventListener("click", setRounds);
     board.appendChild(roundsButton);
     // for(round=1; round<=rounds; round++){
@@ -32,9 +34,29 @@ function main(){
 function setRounds() {
 
     rounds=document.getElementById("roundsBox").value;
-    console.log(rounds)
+    console.log(rounds);
+    buildConsole();
     //return rounds
         
+}
+function buildConsole(){
+    board.innerHTML="";
+    let rock=document.createElement("img");
+    rock.src="rock.jpg";
+    rock.addEventListener("click", sayRock);
+    board.appendChild(rock);
+    let paper=document.createElement("img");
+    paper.src="paper.jpg";
+    paper.addEventListener("click", sayPaper);
+    board.appendChild(paper);
+}
+
+function sayPaper(){
+    console.log("paper");
+}
+
+function sayRock(){
+    console.log("rock");
 }
 
 function score(winner){
