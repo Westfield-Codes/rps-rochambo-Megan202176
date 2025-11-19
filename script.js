@@ -23,6 +23,7 @@ function main(){
     board.appendChild(roundsBox);
     let roundsButton=document.createElement("button");
     roundsButton.innerHTML="Enter Rounds";
+    roundsButton.className="button"
     roundsButton.addEventListener("click", setRounds);
     board.appendChild(roundsButton);
     // for(round=1; round<=rounds; round++){
@@ -36,19 +37,30 @@ function setRounds() {
     rounds=document.getElementById("roundsBox").value;
     console.log(rounds);
     buildConsole();
-    //return rounds
-        
+    //return rounds    
 }
+
 function buildConsole(){
     board.innerHTML="";
     let rock=document.createElement("img");
-    rock.src="rock.jpg";
+    rock.src="alpine-landscape-rock-rubble-01g-al1.png";
     rock.addEventListener("click", sayRock);
     board.appendChild(rock);
     let paper=document.createElement("img");
-    paper.src="paper.jpg";
+    paper.src="images.jpg";
     paper.addEventListener("click", sayPaper);
     board.appendChild(paper);
+    let scissors=document.createElement("img");
+    scissors.src="scissors.png";
+    scissors.addEventListener("click", sayScissors);
+    board.appendChild(scissors);
+    let round=document.createElement("p");
+    instruction.innerHTML="Round - ";
+    board.appendChild(round);
+}
+
+function sayScissors(){
+    console.log("scissors");
 }
 
 function sayPaper(){
