@@ -6,8 +6,13 @@ img{
     width:200px;
     display:block;
     margin:auto;
-    border-width: 50px;
-    border-color: black;
+    border-width: 5px;
+    border-color: rgb(255, 255, 255);
+    border-style:solid;
+    border-radius: 10%;
+}
+img:hover{
+    border-color:rgb(240, 124, 16);
 }
 
 p{

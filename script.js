@@ -12,6 +12,9 @@
 var scores = [0,0];
 var rounds=0
 var board=document.getElementById("gameBoard");
+var move="rock";
+var scoreBoard=document.getElementById("scoreBoard");
+var round=1;
 
 function main(){
     document.getElementById("playButton").style.display = 'none';
@@ -44,19 +47,33 @@ function buildConsole(){
     board.innerHTML="";
     let rock=document.createElement("img");
     rock.src="alpine-landscape-rock-rubble-01g-al1.png";
-    rock.addEventListener("click", sayRock);
+    rock.addEventListener("click", playingRock);
     board.appendChild(rock);
     let paper=document.createElement("img");
     paper.src="images.jpg";
-    paper.addEventListener("click", sayPaper);
+    paper.addEventListener("click", playingPaper);
     board.appendChild(paper);
     let scissors=document.createElement("img");
     scissors.src="scissors.png";
-    scissors.addEventListener("click", sayScissors);
+    scissors.addEventListener("click", playingScissors);
     board.appendChild(scissors);
-    let round=document.createElement("p");
-    instruction.innerHTML="Round - ";
-    board.appendChild(round);
+    let roundIs=document.createElement("p");
+    roundIs.innerHTML="Round "+round+" of "+ rounds;
+    scoreBoard.appendChild(roundIs);
+}
+
+
+function playingRock(){
+    move="rock";
+    cpuTurn();
+}
+function playingPaper(){
+    move="paper";
+    cpuTurn();
+}
+function playingScissors(){
+    move="scissor";
+    cpuTurn();
 }
 
 function sayScissors(){
@@ -85,20 +102,6 @@ function score(winner){
 * @param: none
 * @return:none
 */
-function rpsRound(round) {
-    let u=""
-    let c=""
-    while(u==c){
-        u=userTurn(round)
-        c=cpuTurn()
-        if (u==c)alert("We both chose "+ c)
-    }
-    let combo=u+c
-    let winner=findWinner(combo)
-    return winner
-    //alert("You chose "+ u+" and I chose "+ c+" "+winner+" won!")
-    
-}
 
 /* userturn
 * user can choose r, p, or s.
@@ -121,9 +124,20 @@ if(!moves.includes(choice)){
 * @return: choice
 */
 function cpuTurn() {
-let choice= Math.floor(Math.random()*3)
-let moves=["r", "p", "s"]
-return moves[choice]
+    board.innerHTML=""
+    let moveWords=["rock","paper","scissors"];
+    let moves=["r", "p", "s"]
+    let u= moves[moveWords.indexOf(move)]
+    let cMove= Math.floor(Math.random()*3)
+    let c=moveWords[cMove];
+    while(u==c){
+        alert("We both chose "+ c)
+        buildConsole()
+    }
+    let combo=u+c
+    let winner=findWinner(combo)
+    
+    alert ("You chose "+ move+" and I chose "+ c)
 }
 
 /* findWinner
