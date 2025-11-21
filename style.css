@@ -36,3 +36,9 @@ input{
     display:block;
     margin:auto;
 }
+
+#rand{
+    font-size:20px;
+    border-style:solid;
+    
+}

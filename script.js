@@ -60,8 +60,26 @@ function buildConsole(){
     let roundIs=document.createElement("p");
     roundIs.innerHTML="Round "+round+" of "+ rounds;
     scoreBoard.appendChild(roundIs);
+    let pScore=document.createElement("p");
+    pScore.innerHTML="Player score - " +scores[0];
+    pScore.id="rand"
+    scoreBoard.appendChild(pScore);
+    let cScore=document.createElement("p");
+    cScore.id="rand"
+    cScore.innerHTML="Computer score - " +scores[1];
+    scoreBoard.appendChild(cScore);
 }
 
+function scoreBoard(){
+    
+}
+
+function clearConsole(){
+    board.innerHTML="";
+    let Both=document.createElement("p");
+    Both.innerHTML="We both chose"+c;
+    scoreBoard.appendChild(Both);
+ }
 
 function playingRock(){
     move="rock";
@@ -76,17 +94,6 @@ function playingScissors(){
     cpuTurn();
 }
 
-function sayScissors(){
-    console.log("scissors");
-}
-
-function sayPaper(){
-    console.log("paper");
-}
-
-function sayRock(){
-    console.log("rock");
-}
 
 function score(winner){
     let winnerWords=["You", "I"]
@@ -96,6 +103,7 @@ function score(winner){
     if(scores[scoreWin]>rounds/2)
         alert(winner +" won the whole series.")
     }
+    
 
 /* RPS Round
 * plays a round of RPS and tells the winner
@@ -129,15 +137,16 @@ function cpuTurn() {
     let moves=["r", "p", "s"]
     let u= moves[moveWords.indexOf(move)]
     let cMove= Math.floor(Math.random()*3)
-    let c=moveWords[cMove];
-    while(u==c){
-        alert("We both chose "+ c)
-        buildConsole()
+    let c=moves[cMove];
+    if(u==c){
+        //alert("We both chose "+ c)
+        clearConsole()
     }
+    buildConsole()
     let combo=u+c
     let winner=findWinner(combo)
     
-    alert ("You chose "+ move+" and I chose "+ c)
+    //alert ("You chose "+ move+" and I chose "+ c)
 }
 
 /* findWinner
