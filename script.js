@@ -16,10 +16,15 @@ var move="rock";
 var scoreBoard=document.getElementById("scoreBoard");
 var round=1;
 
+/* function main
+ * main runs whole program
+ * @param:none
+ * @return:none
+ */
 function main(){
     document.getElementById("playButton").style.display = 'none';
     let instruction=document.createElement("p");
-    instruction.innerHTML="How many rounds would you like?";
+    instruction.innerHTML="How many rounds would you like to play? (1-10)";
     board.appendChild(instruction);
     let roundsBox=document.createElement("input");
     roundsBox.id="roundsBox";
@@ -29,20 +34,28 @@ function main(){
     roundsButton.className="button"
     roundsButton.addEventListener("click", setRounds);
     board.appendChild(roundsButton);
+    
     // for(round=1; round<=rounds; round++){
     // winner=rpsRound(round)
     // score(winner)
        // }
     }
 
+/* function setRounds
+ * Gets rounds value from user input.
+ * @param:none
+ * @return:none
+ */
 function setRounds() {
-
-    rounds=document.getElementById("roundsBox").value;
-    console.log(rounds);
-    buildConsole();
-    //return rounds    
+    rounds = parseInt(document.getElementById("roundsBox").value);
+    scoreBoard();
 }
 
+/* function buildConsole
+ * Creates images for player to choose.
+ * @param:none
+ * @return:none
+ */
 function buildConsole(){
     board.innerHTML="";
     let rock=document.createElement("img");
@@ -57,9 +70,15 @@ function buildConsole(){
     scissors.src="scissors.png";
     scissors.addEventListener("click", playingScissors);
     board.appendChild(scissors);
-    let roundIs=document.createElement("p");
-    roundIs.innerHTML="Round "+round+" of "+ rounds;
-    scoreBoard.appendChild(roundIs);
+   
+}
+
+function scoreBoard(){
+    let roundNumber=document.createElement("p");
+    roundNumber.id="roundNumber";
+    roundNumber.innerHTML="Round "+round+" of "+ rounds;
+    scoreBoard.appendChild(roundNumber);
+
     let pScore=document.createElement("p");
     pScore.innerHTML="Player score - " +scores[0];
     pScore.id="rand"
@@ -68,10 +87,6 @@ function buildConsole(){
     cScore.id="rand"
     cScore.innerHTML="Computer score - " +scores[1];
     scoreBoard.appendChild(cScore);
-}
-
-function scoreBoard(){
-    
 }
 
 function clearConsole(){
@@ -149,13 +164,12 @@ function cpuTurn() {
     //alert ("You chose "+ move+" and I chose "+ c)
 }
 
-/* findWinner
-* takes user and computer turn
-* decides who the winner is
-* returns winner
-* @param:u,c
-* @return: winner
-*/
+/* function findWinner
+ * Compares combo to winArray, if they are equal, that is the winner.
+ * Returns winner
+ * @param:combo
+ * @return:winner
+ */
 function findWinner(combo) {
     let match=""
     let winner=""
@@ -165,4 +179,18 @@ function findWinner(combo) {
         if(match==combo)winner=winArray[i][2];
         }
     return winner;
+}
+
+/* function updateScore
+ * Adds a point to the winner, erases scoreboard, then calls buildScoreBoard()
+ * @param: winner
+ * @return:none
+ */
+function updateScore(winner) {
+   if (winner == "I") score[1]++;
+   else score[0]++;
+   scoreBoard.innerHTML = "";
+   // What if one player has won more than half the rounds? 
+   // What if we are out of rounds?
+   buildScoreBoard();
 }
