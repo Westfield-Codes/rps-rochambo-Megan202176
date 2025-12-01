@@ -15,6 +15,7 @@ var board=document.getElementById("gameBoard");
 var move="rock";
 var scoreBoard=document.getElementById("scoreBoard");
 var round=1;
+let moves=["r", "p", "s"]
 
 /* function main
  * main runs whole program
@@ -22,7 +23,7 @@ var round=1;
  * @return:none
  */
 function main(){
-    document.getElementById("playButton").style.display = 'none';
+    document.getElementById("playButton").style.display = "none";
     let instruction=document.createElement("p");
     instruction.innerHTML="How many rounds would you like to play? (1-10)";
     board.appendChild(instruction);
@@ -34,7 +35,6 @@ function main(){
     roundsButton.className="button"
     roundsButton.addEventListener("click", setRounds);
     board.appendChild(roundsButton);
-    
     // for(round=1; round<=rounds; round++){
     // winner=rpsRound(round)
     // score(winner)
@@ -48,37 +48,39 @@ function main(){
  */
 function setRounds() {
     rounds = parseInt(document.getElementById("roundsBox").value);
-    scoreBoard();
+    console.log(rounds)
+    makeScoreBoard();
 }
+
 
 /* function buildConsole
  * Creates images for player to choose.
  * @param:none
  * @return:none
  */
-function buildConsole(){
-    board.innerHTML="";
-    let rock=document.createElement("img");
-    rock.src="alpine-landscape-rock-rubble-01g-al1.png";
-    rock.addEventListener("click", playingRock);
-    board.appendChild(rock);
-    let paper=document.createElement("img");
-    paper.src="images.jpg";
-    paper.addEventListener("click", playingPaper);
-    board.appendChild(paper);
-    let scissors=document.createElement("img");
-    scissors.src="scissors.png";
-    scissors.addEventListener("click", playingScissors);
-    board.appendChild(scissors);
-   
-}
+    function buildConsole(){
+        board.innerHTML="";
+        let rock=document.createElement("img");
+        rock.src="alpine-landscape-rock-rubble-01g-al1.png";
+        rock.addEventListener("click", playingRock);
+        board.appendChild(rock);
+        let paper=document.createElement("img");
+        paper.src="images.jpg";
+        paper.addEventListener("click", playingPaper);
+        board.appendChild(paper);
+        let scissors=document.createElement("img");
+        scissors.src="scissors.png";
+        scissors.addEventListener("click", playingScissors);
+        board.appendChild(scissors);
+        
+    }
 
-function scoreBoard(){
+function makeScoreBoard(){
     let roundNumber=document.createElement("p");
+    console.log("score board")
     roundNumber.id="roundNumber";
     roundNumber.innerHTML="Round "+round+" of "+ rounds;
     scoreBoard.appendChild(roundNumber);
-
     let pScore=document.createElement("p");
     pScore.innerHTML="Player score - " +scores[0];
     pScore.id="rand"
@@ -87,26 +89,45 @@ function scoreBoard(){
     cScore.id="rand"
     cScore.innerHTML="Computer score - " +scores[1];
     scoreBoard.appendChild(cScore);
+    buildConsole()
 }
 
-function clearConsole(){
+function buildAnswer(){
+    buildConsole()
     board.innerHTML="";
-    let Both=document.createElement("p");
-    Both.innerHTML="We both chose"+c;
-    scoreBoard.appendChild(Both);
+    let pAnswer=document.createElement("p");
+    pAnswer.innerHTML="Player answer - "+move;
+    pAnswer.id="bob"
+    scoreBoard.appendChild(pAnswer);
+    buildConsole()
+    let cAnswer=document.createElement("p");
+    cAnswer.innerHTML="Computer answer - "+;
+    cAnswer.id="bob"
+    scoreBoard.appendChild(cAnswer);
+}
+
+function clearConsole(message){
+    board.innerHTML="";
+    let both=document.createElement("p");
+    both.innerHTML=message;
+    board.appendChild(both);
+    //makeScoreBoard()
  }
 
+
 function playingRock(){
-    move="rock";
-    cpuTurn();
+    cpuTurn("rock");
+    
 }
+
 function playingPaper(){
-    move="paper";
-    cpuTurn();
+    cpuTurn("paper");
+
 }
+
 function playingScissors(){
-    move="scissor";
-    cpuTurn();
+    cpuTurn("scissors");
+
 }
 
 
@@ -132,21 +153,21 @@ function score(winner){
 * @param:none
 * @return:choice
 */
-function userTurn(round) {
-let choice=prompt("Round " + round+ ": enter r, p, or s.")
-let moves=["r", "p", "s"]
-if(!moves.includes(choice)){
- alert("invalid input")
- }
- return choice
-}
+    function userTurn(round) {
+        let choice=prompt("Round " + round+ ": enter r, p, or s.")
+        let moves=["r", "p", "s"]
+        if(!moves.includes(choice)){
+        alert("invalid input")
+        }
+        return choice
+    }
 
 /* cpuTurn
 * computer choose between r, p, or s
 * @param:none
 * @return: choice
 */
-function cpuTurn() {
+function cpuTurn(move) {
     board.innerHTML=""
     let moveWords=["rock","paper","scissors"];
     let moves=["r", "p", "s"]
@@ -155,11 +176,11 @@ function cpuTurn() {
     let c=moves[cMove];
     if(u==c){
         //alert("We both chose "+ c)
-        clearConsole()
+        clearConsole("We both chose "+ c)
     }
-    buildConsole()
-    let combo=u+c
-    let winner=findWinner(combo)
+    else buildAnswer()
+    //let combo=u+c
+    //let winner=findWinner(combo)
     
     //alert ("You chose "+ move+" and I chose "+ c)
 }
