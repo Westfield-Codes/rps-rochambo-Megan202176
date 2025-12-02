@@ -8,6 +8,7 @@
 *     d. Move to next function
 *  3. System Test finished version (does it work right in all conditions?)
 */
+
 /* Global Variables */
 var scores = [0,0];
 var rounds=0
@@ -22,6 +23,7 @@ let moves=["r", "p", "s"]
  * @param:none
  * @return:none
  */
+
 function main(){
     document.getElementById("playButton").style.display = "none";
     let instruction=document.createElement("p");
@@ -77,7 +79,6 @@ function setRounds() {
 
 function makeScoreBoard(){
     let roundNumber=document.createElement("p");
-    console.log("score board")
     roundNumber.id="roundNumber";
     roundNumber.innerHTML="Round "+round+" of "+ rounds;
     scoreBoard.appendChild(roundNumber);
@@ -92,18 +93,22 @@ function makeScoreBoard(){
     buildConsole()
 }
 
-function buildAnswer(){
-    buildConsole()
+function buildAnswer(move, cMove, winner){
+   // buildConsole()
     board.innerHTML="";
     let pAnswer=document.createElement("p");
     pAnswer.innerHTML="Player answer - "+move;
-    pAnswer.id="bob"
+    pAnswer.id="a"
     scoreBoard.appendChild(pAnswer);
-    buildConsole()
+    //buildConsole()
     let cAnswer=document.createElement("p");
-    cAnswer.innerHTML="Computer answer - "+;
-    cAnswer.id="bob"
+    cAnswer.innerHTML="Computer answer - "+cMove ;
+    cAnswer.id="a"
     scoreBoard.appendChild(cAnswer);
+    let final=document.createElement("p");
+    final.innerHTML="The winner is"+ winner;
+    final.id="a"
+    scoreBoard.appendChild(final);
 }
 
 function clearConsole(message){
@@ -111,9 +116,20 @@ function clearConsole(message){
     let both=document.createElement("p");
     both.innerHTML=message;
     board.appendChild(both);
+    //buildConsole();
     //makeScoreBoard()
  }
 
+ function makePopUp(message){
+    let popup= document.createElement("div")
+    popup.id="popup"
+    let popMessage= document.createElement("p")
+    popMessage.innerHTML=message
+    popup.addEventListener("click", buildConsole);
+    popup.appendChild(popMessage)
+    board.appendChild(popup)
+
+ }
 
 function playingRock(){
     cpuTurn("rock");
@@ -140,7 +156,6 @@ function score(winner){
         alert(winner +" won the whole series.")
     }
     
-
 /* RPS Round
 * plays a round of RPS and tells the winner
 * @param: none
@@ -173,12 +188,13 @@ function cpuTurn(move) {
     let moves=["r", "p", "s"]
     let u= moves[moveWords.indexOf(move)]
     let cMove= Math.floor(Math.random()*3)
+    cMove=0
     let c=moves[cMove];
     if(u==c){
         //alert("We both chose "+ c)
-        clearConsole("We both chose "+ c)
+        makePopUp("We both chose "+ c)
     }
-    else buildAnswer()
+    else buildAnswer(move, moveWords[cMove])
     //let combo=u+c
     //let winner=findWinner(combo)
     
@@ -213,5 +229,5 @@ function updateScore(winner) {
    scoreBoard.innerHTML = "";
    // What if one player has won more than half the rounds? 
    // What if we are out of rounds?
-   buildScoreBoard();
+
 }
