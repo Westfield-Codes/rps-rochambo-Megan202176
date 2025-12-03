@@ -95,20 +95,26 @@ function makeScoreBoard(){
 
 function buildAnswer(move, cMove, winner){
    // buildConsole()
-    board.innerHTML="";
+    //board.innerHTML="";
+    let all= document.createElement("div")
+    all.id="popup"
+
     let pAnswer=document.createElement("p");
     pAnswer.innerHTML="Player answer - "+move;
     pAnswer.id="a"
-    scoreBoard.appendChild(pAnswer);
+    all.appendChild(pAnswer);
     //buildConsole()
     let cAnswer=document.createElement("p");
     cAnswer.innerHTML="Computer answer - "+cMove ;
     cAnswer.id="a"
-    scoreBoard.appendChild(cAnswer);
+    all.appendChild(cAnswer);
     let final=document.createElement("p");
-    final.innerHTML="The winner is"+ winner;
+    final.innerHTML="The winner is "+ winner;
     final.id="a"
-    scoreBoard.appendChild(final);
+    all.appendChild(final);
+
+    all.addEventListener("click", buildConsole);
+    board.appendChild(all) 
 }
 
 function clearConsole(message){
@@ -147,14 +153,14 @@ function playingScissors(){
 }
 
 
-function score(winner){
-    let winnerWords=["You", "I"]
-    let scoreWin=winnerWords.indexOf(winner)
-    scores[scoreWin]++
-    alert(winner+" won. The score is now YOU: "+ scores[0]+ " and I: "+ scores[1])
-    if(scores[scoreWin]>rounds/2)
-        alert(winner +" won the whole series.")
-    }
+// function score(winner){
+//     let winnerWords=["You", "I"]
+//     let scoreWin=winnerWords.indexOf(winner)
+//     scores[scoreWin]++
+//     alert(winner+" won. The score is now YOU: "+ scores[0]+ " and I: "+ scores[1])
+//     if(scores[scoreWin]>rounds/2)
+//         alert(winner +" won the whole series.")
+//     }
     
 /* RPS Round
 * plays a round of RPS and tells the winner
@@ -188,17 +194,19 @@ function cpuTurn(move) {
     let moves=["r", "p", "s"]
     let u= moves[moveWords.indexOf(move)]
     let cMove= Math.floor(Math.random()*3)
-    cMove=0
+    //cMove=0
     let c=moves[cMove];
     if(u==c){
         //alert("We both chose "+ c)
         makePopUp("We both chose "+ c)
     }
-    else buildAnswer(move, moveWords[cMove])
-    //let combo=u+c
-    //let winner=findWinner(combo)
+    else {let combo=u+c
+    let winner=findWinner(combo)
+    buildAnswer(move, moveWords[cMove],winner,updateScore(winner))
     
+   }
     //alert ("You chose "+ move+" and I chose "+ c)
+    
 }
 
 /* function findWinner
@@ -215,6 +223,7 @@ function findWinner(combo) {
         match=winArray[i][0]+winArray[i][1];
         if(match==combo)winner=winArray[i][2];
         }
+
     return winner;
 }
 
@@ -224,10 +233,11 @@ function findWinner(combo) {
  * @return:none
  */
 function updateScore(winner) {
-   if (winner == "I") score[1]++;
-   else score[0]++;
+   if (winner == "I") scores[1]++;
+   else scores[0]++;
    scoreBoard.innerHTML = "";
-   // What if one player has won more than half the rounds? 
-   // What if we are out of rounds?
+   makeScoreBoard();
+//    What if one player has won more than half the rounds? 
+//    What if we are out of rounds?
 
 }
