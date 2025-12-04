@@ -95,7 +95,7 @@ function makeScoreBoard(){
 
 function buildAnswer(move, cMove, winner){
    // buildConsole()
-    //board.innerHTML="";
+    board.innerHTML="";
     let all= document.createElement("div")
     all.id="popup"
 
@@ -235,9 +235,39 @@ function findWinner(combo) {
 function updateScore(winner) {
    if (winner == "I") scores[1]++;
    else scores[0]++;
+    if (winner !== "tie") round++;
+
+ if (round > rounds) {
+        endGame();
+        return;
+    }
+
+
    scoreBoard.innerHTML = "";
    makeScoreBoard();
 //    What if one player has won more than half the rounds? 
 //    What if we are out of rounds?
 
+}
+
+
+function endGame(winner) {
+    board.innerHTML = "";       
+
+    let end = document.createElement("div");
+    let winnerText = "";
+
+    // if (scores[0] > scores[1]) {
+    //     winnerText = "Player wins the game!";
+    // } else if (scores[1] > scores[0]) {
+    //     winnerText = "Computer wins the game!";
+    // } else {
+    //     winnerText = "It's a TIE overall!";
+    // }
+
+    end.innerHTML = "The total winner is "+ winner;
+  
+
+    end.addEventListener("click");
+    board.appendChild(end);
 }
