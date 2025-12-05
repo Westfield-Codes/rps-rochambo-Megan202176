@@ -54,7 +54,9 @@ input{
 }
 
 #rand{
-    font-size:20px;
+    font-size:40px;
     border-style:solid;
-    
+    width:50%;
+    margin:auto;
+    margin-bottom:20px;
 }

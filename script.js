@@ -202,7 +202,10 @@ function cpuTurn(move) {
     }
     else {let combo=u+c
     let winner=findWinner(combo)
-    buildAnswer(move, moveWords[cMove],winner,updateScore(winner))
+    let gameOver= updateScore(winner);
+    if(gameOver) return;
+
+    buildAnswer(move, moveWords[cMove],winner)
     
    }
     //alert ("You chose "+ move+" and I chose "+ c)
@@ -235,39 +238,47 @@ function findWinner(combo) {
 function updateScore(winner) {
    if (winner == "I") scores[1]++;
    else scores[0]++;
-    if (winner !== "tie") round++;
+    round++
 
  if (round > rounds) {
         endGame();
-        return;
+        return true;
     }
 
 
    scoreBoard.innerHTML = "";
    makeScoreBoard();
+   return false;
 //    What if one player has won more than half the rounds? 
 //    What if we are out of rounds?
 
 }
 
 
-function endGame(winner) {
+function endGame() {
     board.innerHTML = "";       
-
+   scoreBoard.innerHTML="";
     let end = document.createElement("div");
     let winnerText = "";
+    end.id="a"
+    if (scores[0] > scores[1]) {
+        winnerText = "Player wins the game!";
+    }
+     else if (scores[1] > scores[0]) {
+        winnerText = "Computer wins the game!";
+    } 
 
-    // if (scores[0] > scores[1]) {
-    //     winnerText = "Player wins the game!";
-    // } else if (scores[1] > scores[0]) {
-    //     winnerText = "Computer wins the game!";
-    // } else {
-    //     winnerText = "It's a TIE overall!";
-    // }
+    let message = document.createElement("p");
+    message.innerHTML = winnerText;
+    end.appendChild(message);
 
-    end.innerHTML = "The total winner is "+ winner;
-  
+    let playAgainButton = document.createElement("button");
+    playAgainButton.innerHTML = "Play Again";
+    playAgainButton.className = "button";
 
-    end.addEventListener("click");
-    board.appendChild(end);
-}
+   playAgainButton.addEventListener("click", main)
+
+   
+   end.appendChild(playAgainButton);
+   board.appendChild(end);
+   }
