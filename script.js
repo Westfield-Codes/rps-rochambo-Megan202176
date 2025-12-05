@@ -90,7 +90,12 @@ function makeScoreBoard() {
    cScore.id = "rand"
    cScore.innerHTML = "Computer score - " + scores[1];
    scoreBoard.appendChild(cScore);
+   if (round > rounds) {
+      console.log("endGame")
+      endGame();
+   } else {
    buildConsole()
+   }
 }
 
 function buildAnswer(move, cMove, winner) {
@@ -98,7 +103,6 @@ function buildAnswer(move, cMove, winner) {
    board.innerHTML = "";
    let all = document.createElement("div")
    all.id = "popup"
-
    let pAnswer = document.createElement("p");
    pAnswer.innerHTML = "Player answer - " + move;
    pAnswer.id = "a"
@@ -112,9 +116,9 @@ function buildAnswer(move, cMove, winner) {
    final.innerHTML = "The winner is " + winner;
    final.id = "a"
    all.appendChild(final);
-
    all.addEventListener("click", buildConsole);
    board.appendChild(all)
+   updateScore(winner);
 }
 
 function clearConsole(message) {
@@ -201,8 +205,7 @@ function cpuTurn(move) {
    } else {
       let combo = u + c
       let winner = findWinner(combo)
-      buildAnswer(move, moveWords[cMove], winner, updateScore(winner))
-
+      buildAnswer(move, moveWords[cMove], winner)
    }
    //alert ("You chose "+ move+" and I chose "+ c)
 
@@ -241,20 +244,11 @@ function findWinner(combo) {
 function updateScore(winner) {
    if (winner == "I") scores[1]++;
    else scores[0]++;
-
    round++;
-
-   if (round > rounds) {
-      console.log("endGame")
-      endGame();
-   } else {
-
-      scoreBoard.innerHTML = "";
-      makeScoreBoard();
-   }
+   scoreBoard.innerHTML = "";
+   makeScoreBoard();
    //    What if one player has won more than half the rounds? 
    //    What if we are out of rounds?
-
 }
 
 
