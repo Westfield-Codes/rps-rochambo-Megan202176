@@ -276,9 +276,19 @@ function endGame() {
     playAgainButton.innerHTML = "Play Again";
     playAgainButton.className = "button";
 
-   playAgainButton.addEventListener("click", main)
+   playAgainButton.addEventListener("click", newGame)
 
    
    end.appendChild(playAgainButton);
    board.appendChild(end);
    }
+
+  function newGame(){
+    board.innerHTML="";
+    let button=document.createElement("button");
+    button.id="playButton";
+    board.appendChild(button);
+    button.addEventListener("click", main)
+    button.innerHTML="Play Rock, Paper, Scissors";
+    main()
+  }
