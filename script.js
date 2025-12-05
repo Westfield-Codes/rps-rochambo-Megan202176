@@ -260,7 +260,7 @@ function endGame() {
    scoreBoard.innerHTML="";
     let end = document.createElement("div");
     let winnerText = "";
-    end.id="a"
+    end.id="en"
     if (scores[0] > scores[1]) {
         winnerText = "Player wins the game!";
     }
